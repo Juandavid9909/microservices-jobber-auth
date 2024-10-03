@@ -1,0 +1,10 @@
+node_modules/
+
+.git/
+.github/
+
+Dockerfile
+Dockerfile.dev
+.dockerignore
+
+coverage/
