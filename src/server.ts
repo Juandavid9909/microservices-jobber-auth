@@ -1,6 +1,7 @@
 import http from "http";
 
 import { Application, json, NextFunction, Request, Response, urlencoded } from "express";
+import { appRoutes } from "@auth/routes";
 import { checkConnection } from "@auth/elasticsearch";
 import { config } from "@auth/config";
 import { CustomError, IAuthPayload, IErrorResponse, winstonLogger } from "@juandavid9909/jobber-shared";
@@ -57,7 +58,7 @@ const standardMiddleware = (app: Application): void => {
 };
 
 const routesMiddleware = (app: Application): void => {
-  console.log(app);
+  appRoutes(app);
 };
 
 const startQueues = async (): Promise<void> => {
