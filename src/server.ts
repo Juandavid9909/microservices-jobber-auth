@@ -40,7 +40,7 @@ const securityMiddleware = (app: Application): void => {
   );
 
   app.use((req: Request, _res: Response, next: NextFunction) => {
-    if(req.headers.authorization) {
+    if (req.headers.authorization) {
       const token = req.headers.authorization.split(" ")[1];
       const payload = verify(token, config.JWT_TOKEN!) as IAuthPayload;
 
@@ -61,9 +61,7 @@ const routesMiddleware = (app: Application): void => {
   appRoutes(app);
 };
 
-const startQueues = async (): Promise<void> => {
-
-};
+const startQueues = async (): Promise<void> => {};
 
 const startElasticSearch = (): void => {
   checkConnection();
