@@ -6,11 +6,16 @@ import { winstonLogger } from "@juandavid9909/jobber-shared";
 
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, "authServiceProducer", "debug");
 
-export const publishDirectMessage = async (channel: Channel, exchangeName: string, routingKey: string, message: string, logMessage: string
+export const publishDirectMessage = async (
+  channel: Channel,
+  exchangeName: string,
+  routingKey: string,
+  message: string,
+  logMessage: string
 ): Promise<void> => {
   try {
-    if(!channel) {
-      channel = await createConnection() as Channel;
+    if (!channel) {
+      channel = (await createConnection()) as Channel;
     }
 
     await channel.assertExchange(exchangeName, "direct");
