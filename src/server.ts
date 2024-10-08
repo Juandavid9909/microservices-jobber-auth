@@ -2,8 +2,10 @@ import http from "http";
 
 import { Application, json, NextFunction, Request, Response, urlencoded } from "express";
 import { appRoutes } from "@auth/routes";
+import { Channel } from "amqplib";
 import { checkConnection } from "@auth/elasticsearch";
 import { config } from "@auth/config";
+import { createConnection } from "@auth/queues/connection";
 import { CustomError, IAuthPayload, IErrorResponse, winstonLogger } from "@juandavid9909/jobber-shared";
 import { Logger } from "winston";
 import { verify } from "jsonwebtoken";
@@ -15,6 +17,8 @@ import hpp from "hpp";
 const SERVER_PORT = 4002;
 
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, "authenticationServer", "debug");
+
+export let authChannel: Channel;
 
 export const start = (app: Application): void => {
   securityMiddleware(app);
@@ -61,7 +65,9 @@ const routesMiddleware = (app: Application): void => {
   appRoutes(app);
 };
 
-const startQueues = async (): Promise<void> => {};
+const startQueues = async (): Promise<void> => {
+  authChannel = await createConnection() as Channel;
+};
 
 const startElasticSearch = (): void => {
   checkConnection();

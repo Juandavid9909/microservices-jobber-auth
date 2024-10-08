@@ -88,6 +88,10 @@ AuthModel.prototype.comparePassword = async function (password: string, hashedPa
   return compare(password, hashedPassword);
 };
 
+AuthModel.prototype.hashPassword = async function(password: string): Promise<string> {
+  return hash(password, SALT_ROUND);
+};
+
 AuthModel.sync({ force: true });
 
 export { AuthModel };
