@@ -32,20 +32,20 @@ export const createAuthUser = async (data: IAuthDocument): Promise<IAuthDocument
 };
 
 export const getAuthUserById = async (authId: number): Promise<IAuthDocument> => {
-  const user: Model = await AuthModel.findOne({
+  const user: Model = (await AuthModel.findOne({
     where: {
       id: authId
     },
     attributes: {
       exclude: ["password"]
     }
-  }) as Model;
+  })) as Model;
 
   return user.dataValues;
 };
 
 export const getUserByUsernameOrEmail = async (username: string, email: string): Promise<IAuthDocument> => {
-  const user: Model = await AuthModel.findOne({
+  const user: Model = (await AuthModel.findOne({
     where: {
       [Op.or]: [
         {
@@ -56,46 +56,46 @@ export const getUserByUsernameOrEmail = async (username: string, email: string):
         }
       ]
     }
-  }) as Model;
+  })) as Model;
 
   return user.dataValues;
 };
 
 export const getUserByUsername = async (username: string): Promise<IAuthDocument> => {
-  const user: Model = await AuthModel.findOne({
+  const user: Model = (await AuthModel.findOne({
     where: {
       username: firstLetterUppercase(username)
     }
-  }) as Model;
+  })) as Model;
 
   return user.dataValues;
 };
 
 export const getUserByEmail = async (email: string): Promise<IAuthDocument> => {
-  const user: Model = await AuthModel.findOne({
+  const user: Model = (await AuthModel.findOne({
     where: {
       email: lowerCase(email)
     }
-  }) as Model;
+  })) as Model;
 
   return user.dataValues;
 };
 
 export const getAuthUserByVerificationToken = async (token: string): Promise<IAuthDocument> => {
-  const user: Model = await AuthModel.findOne({
+  const user: Model = (await AuthModel.findOne({
     where: {
       emailVerificationToken: token
     },
     attributes: {
       exclude: ["password"]
     }
-  }) as Model;
+  })) as Model;
 
   return user.dataValues;
 };
 
 export const getAuthUserByPasswordToken = async (token: string): Promise<IAuthDocument> => {
-  const user: Model = await AuthModel.findOne({
+  const user: Model = (await AuthModel.findOne({
     where: {
       [Op.and]: [
         {
@@ -108,7 +108,7 @@ export const getAuthUserByPasswordToken = async (token: string): Promise<IAuthDo
         }
       ]
     }
-  }) as Model;
+  })) as Model;
 
   return user.dataValues;
 };
