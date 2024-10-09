@@ -1,6 +1,6 @@
 {
     "name": "jobber-auth",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "description": "",
     "main": "app.js",
     "scripts": {
@@ -20,7 +20,7 @@
     "license": "ISC",
     "dependencies": {
         "@elastic/elasticsearch": "^8.15.0",
-        "@juandavid9909/jobber-shared": "^0.1.3",
+        "@juandavid9909/jobber-shared": "^1.1.0",
         "amqplib": "^0.10.4",
         "bcryptjs": "^2.4.3",
         "compression": "^1.7.4",
