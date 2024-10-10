@@ -1,7 +1,14 @@
 import crypto from "crypto";
 
 import { authChannel } from "@auth/server";
-import { BadRequestError, firstLetterUppercase, IAuthDocument, IEmailMessageDetails, lowerCase, uploads } from "@juandavid9909/jobber-shared";
+import {
+  BadRequestError,
+  firstLetterUppercase,
+  IAuthDocument,
+  IEmailMessageDetails,
+  lowerCase,
+  uploads
+} from "@juandavid9909/jobber-shared";
 import { config } from "@auth/config";
 import { createAuthUser, getUserByUsernameOrEmail, signToken } from "@auth/services/auth.service";
 import { publishDirectMessage } from "@auth/queues/auth.producer";
@@ -26,7 +33,7 @@ export const create = async (req: Request, res: Response): Promise<void> => {
   }
 
   const profilePublicId = uuidv4();
-  const uploadResult: UploadApiResponse = await uploads(profilePicture, `${profilePublicId}`, true, true) as UploadApiResponse;
+  const uploadResult: UploadApiResponse = (await uploads(profilePicture, `${profilePublicId}`, true, true)) as UploadApiResponse;
 
   if (!uploadResult.public_id) {
     throw new BadRequestError("File upload error. Try again", "SignUp create() method error");
