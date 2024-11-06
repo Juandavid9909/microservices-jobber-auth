@@ -3,11 +3,11 @@ import { getAuthUserById, getAuthUserByVerificationToken, updateVerifyEmailField
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 
-export const update = async(req: Request, res: Response): Promise<void> => {
+export const update = async (req: Request, res: Response): Promise<void> => {
   const { token } = req.body;
   const checkIfUserExists: IAuthDocument = await getAuthUserByVerificationToken(token);
 
-  if(!checkIfUserExists) {
+  if (!checkIfUserExists) {
     throw new BadRequestError("Verification token is either invalid or is already used", "VerifyEmail update() method error");
   }
 
