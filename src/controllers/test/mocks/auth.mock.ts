@@ -1,7 +1,7 @@
 import { IAuthDocument, IAuthPayload } from "@juandavid9909/jobber-shared";
 import { Response } from "express";
 
-export const authRequest = (sessionData: IJWT, body: IAuthMock, currentUser?: IAuthPayload | null, params?: unknown) => ({
+export const authMockRequest = (sessionData: IJWT, body: IAuthMock, currentUser?: IAuthPayload | null, params?: unknown) => ({
   session: sessionData,
   body,
   params,
