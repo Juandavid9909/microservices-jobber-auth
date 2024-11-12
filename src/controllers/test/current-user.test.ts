@@ -76,10 +76,9 @@ describe("CurrentUser", () => {
 
       jest.spyOn(auth, "getUserByEmail").mockResolvedValue({} as never);
 
-      resendEmail(req, res)
-        .catch(() => {
-          expect(helper.BadRequestError).toHaveBeenCalledWith("Email is invalid", "CurrentUser resentEmail() method error");
-        });
+      resendEmail(req, res).catch(() => {
+        expect(helper.BadRequestError).toHaveBeenCalledWith("Email is invalid", "CurrentUser resentEmail() method error");
+      });
     });
 
     it("should call updateVerifyEmailField method", async () => {
