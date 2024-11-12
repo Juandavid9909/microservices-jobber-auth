@@ -1,6 +1,8 @@
 import { authMock, authMockRequest, authMockResponse, authUserPayload } from "@auth/controllers/test/mocks/auth.mock";
+import { config } from "@auth/config";
 import { read } from "@auth/controllers/current-user";
 import { Request, Response } from "express";
+import { Sequelize } from "sequelize";
 import * as auth from "@auth/services/auth.service";
 
 jest.mock("@auth/services/auth.service");
@@ -11,13 +13,27 @@ jest.mock("@elastic/elasticsearch");
 const USERNAME: string = "Manny";
 const PASSWORD: string = "manny1";
 
+let mockConnection: Sequelize;
+
 describe("CurrentUser", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.resetAllMocks();
+
+    mockConnection = new Sequelize(config.MYSQL_DB!, {
+      dialect: "mysql",
+      logging: false,
+      dialectOptions: {
+        multipleStatements: true
+      }
+    });
+
+    await mockConnection.sync({ force: true });
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     jest.clearAllMocks();
+
+    await mockConnection.close();
   });
 
   describe("read method", () => {
