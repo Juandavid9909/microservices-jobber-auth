@@ -2,7 +2,7 @@ import { Client } from "@elastic/elasticsearch";
 import { ClusterHealthResponse, GetResponse } from "@elastic/elasticsearch/lib/api/types";
 import { config } from "@auth/config";
 import { Logger } from "winston";
-import { winstonLogger } from "@juandavid9909/jobber-shared";
+import { ISellerGig, winstonLogger } from "@juandavid9909/jobber-shared";
 
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, "authElasticSearchServer", "debug");
 
@@ -57,18 +57,18 @@ const createIndex = async (indexName: string): Promise<void> => {
   }
 };
 
-const getDocumentById = async (index: string, gigId: string) => {
+const getDocumentById = async (index: string, gigId: string): Promise<ISellerGig> => {
   try {
     const result: GetResponse = await elasticSearchClient.get({
       index,
       id: gigId
     });
 
-    return result._source;
+    return result._source as ISellerGig;
   } catch (error) {
     log.log("error", "AuthService elasticsearch getDocumentById() method error:", error);
 
-    return {};
+    return {} as ISellerGig;
   }
 };
 
